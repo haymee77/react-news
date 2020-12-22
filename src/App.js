@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Grid } from '@material-ui/core';
+import NewsList from './components/NewsList';
 
-function App() {
+const apiKey = 'afa87fb5855c4866a7c973e8a0d3f206';
+const App = () => {
+  const [news, setNews] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get('https://newsapi.org/v2/top-headlines?country=kr&apiKey=' + apiKey)
+      .then((response) => {
+        setNews(response.data.articles);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid container>
+      <Grid item sm={1} md={2} />
+      <Grid item sm={10} md={8}>
+        <NewsList news={news} />
+      </Grid>
+      <Grid item sm={1} md={2} />
+    </Grid>
   );
-}
+};
 
 export default App;
