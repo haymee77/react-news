@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 
 const NewsItem = ({ article }) => {
   const classes = useStyles();
-  console.log(article);
   const {
     urlToImage,
     title,
@@ -52,7 +51,7 @@ const NewsItem = ({ article }) => {
           </Link>
         </Typography>
         <Typography variant="body1">
-          {description.length > 80
+          {description && description.length > 80
             ? `${description.substring(0, 80)}...`
             : description}
         </Typography>

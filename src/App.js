@@ -1,32 +1,9 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Grid } from '@material-ui/core';
-import NewsList from './components/NewsList';
+import React, { useState, useCallback } from 'react';
+import NewsPage from './pages/NewsPage';
+import { Route } from 'react-router-dom';
 
-const apiKey = 'afa87fb5855c4866a7c973e8a0d3f206';
 const App = () => {
-  const [news, setNews] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get('https://newsapi.org/v2/top-headlines?country=kr&apiKey=' + apiKey)
-      .then((response) => {
-        setNews(response.data.articles);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
-
-  return (
-    <Grid container>
-      <Grid item sm={1} md={2} />
-      <Grid item sm={10} md={8}>
-        <NewsList news={news} />
-      </Grid>
-      <Grid item sm={1} md={2} />
-    </Grid>
-  );
+  return <Route path="/:category?" component={NewsPage} />;
 };
 
 export default App;
